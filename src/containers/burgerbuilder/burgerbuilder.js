@@ -31,6 +31,8 @@ class BurgerBuilder extends Component {
         this.removeIngredientHandler = this.removeIngredientHandler.bind(this);
         this.updatePurchaseState = this.updatePurchaseState.bind(this);
         this.purchaseHandler = this.purchaseHandler.bind(this);
+        this.purchaseCancelHandler = this.purchaseCancelHandler.bind(this);
+        this.purchaseContinueHandler = this.purchaseContinueHandler.bind(this);
 
     }
 
@@ -82,6 +84,14 @@ class BurgerBuilder extends Component {
         this.setState({ purchasing: true });
     }
 
+    purchaseCancelHandler() {
+        this.setState({ purchasing: false });
+    }
+
+    purchaseContinueHandler() {
+        alert("Continue");
+    }
+
 
 
     render() {
@@ -94,8 +104,12 @@ class BurgerBuilder extends Component {
         //{salad:true,meat:false,cheese: true......
         return (
             <Aux>
-                <Modal show={this.state.purchasing}>
-                    <OrderSummary ingredients={this.state.ingredients}/>
+                <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+                    <OrderSummary 
+                        ingredients={this.state.ingredients}
+                        purchaseCancelled={this.purchaseCancelHandler}
+                        purchaseContinued={this.purchaseContinueHandler}
+                    />
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls 
