@@ -7,14 +7,22 @@ import Aux from "../../../hoc/aux.js";
 import "./sidedrawer.css";
 
 const sidedrawer = props => {
+    let attachedClasses;
+    if (props.open) {
+        attachedClasses = "Open";
+    }
+    else {
+        attachedClasses = "Close";
+    }
+
     return (
         <Aux>
         <Media query="(max-width: 500px)"
-        render={()=><Backdrop show/>}
+        render={()=><Backdrop show={props.open} clicked={props.closed}/>}
         />
         
         
-        <div className="SideDrawer">
+        <div className={"SideDrawer "+attachedClasses}>
         
             <div className="LogoS">
             <Logo/>
