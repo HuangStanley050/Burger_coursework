@@ -3,7 +3,7 @@ import Media from "react-media";
 import Logo from "../../logo/logo.js";
 import NavigationItems from "../navigationitems/navigationitems.js";
 import Backdrop from "../../ui/backdrop/backdrop.js";
-import Aux from "../../../hoc/aux.js";
+import Aux from "../../../hoc/aux/aux.js";
 import "./sidedrawer.css";
 
 const sidedrawer = props => {
