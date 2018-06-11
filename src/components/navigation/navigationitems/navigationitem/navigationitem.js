@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from 'react-router-dom';
 import "./navigationitem.css";
 
 const navigationItem = (props) => {
@@ -6,7 +7,7 @@ const navigationItem = (props) => {
     //var no_name = null;
     return (
         <li className="NavigationItem">
-            <a className={props.active?"active":null } href={props.link}>{props.children}</a>
+            <NavLink exact={props.exact} activeClassName="active" to={props.link}>{props.children}</NavLink>
         </li>
     );
 }
