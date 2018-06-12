@@ -2,15 +2,13 @@ import React, { Component } from "react";
 import { Route } from 'react-router-dom';
 import ContactData from "./contactdata/contactdata.js";
 import CheckoutSummary from "../../components/order/checkoutsummary/checkoutsummary.js";
+import { connect } from "react-redux";
 /*global URLSearchParams*/
 
 class Checkout extends Component {
-    state = {
-        ingredients: null,
-        totalPrice: 0
-    }
 
-    componentWillMount() {
+
+    /*componentWillMount() {
         const query = new URLSearchParams(this.props.location.search);
         const ingredients = {};
         let price = 0;
@@ -24,6 +22,7 @@ class Checkout extends Component {
         }
         this.setState({ ingredients: ingredients, totalPrice: price });
     }
+    */
 
     checkoutCancelledHandler = () => {
         this.props.history.goBack();
@@ -39,13 +38,24 @@ class Checkout extends Component {
                 <CheckoutSummary 
                 checkoutCanelled={this.checkoutCancelledHandler}
                 checkoutContinued={this.checkoutContinuedHandler}
-                ingredients={this.state.ingredients}
+                ingredients={this.props.ings}
                 />
-                <Route path={this.props.match.path +'/contact-data'} render={(props)=>(<ContactData price={this.state.totalPrice} ingredients={this.state.ingredients} {...props}/>)}/>
+                <Route path={this.props.match.path +'/contact-data'}
+                       component={ContactData}
+                />
             </div>
         );
     }
 
 };
 
-export default Checkout;
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients,
+        //price: state.totalPrice
+    };
+};
+
+//mapStateToProps --->always 1st argument
+//mapDispatchToProps--->always 2nd argument
+export default connect(mapStateToProps)(Checkout);
