@@ -107,13 +107,42 @@ class ContactData extends Component {
 
     }
 
+    inputChangedHandler = (event, inputIdentifier) => {
+        //----->need to deep clone the state which has several nested states
+        const updatedOrderForm = {
+            ...this.state.orderForm //--->clone the whole thing
+        };
+        const updatedFormElement = {
+            ...updatedOrderForm[inputIdentifier] //--->clone that specific object in the state
+        };
+        updatedFormElement.value = event.target.value;
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        this.setState({ orderForm: updatedOrderForm });
+    }
+
     render() {
+        const formElementsArray = [];
+
+        for (let key in this.state.orderForm) {
+            formElementsArray.push({
+                id: key,
+                config: this.state.orderForm[key]
+
+            });
+        }
+
         let form = (
             <form>
-                    <Input elementType="..." elementConfig="..." value="..."/>
-                    <Input inputtype="input" type="email" name="email" placeholder="Your Mail"/>
-                    <Input inputtype="input" type="text" name="street" placeholder="Street"/>
-                    <Input inputtype="input"  type="text" name="postal" placeholder="Postal Code"/>
+                    
+                    {formElementsArray.map(formElement=>(
+                        <Input
+                           key={formElement.id}
+                           elementType={formElement.config.elementType}
+                           elementConfig={formElement.config.elementConfig}
+                           value={formElement.config.value}
+                           changed={(event)=>this.inputChangedHandler(event,formElement.id)} // use ()=> if you need paass parameter to the method
+                        />                                       // ()=> calls the handler then handler gets the parameters
+                    ))}
                     <Button clicked={this.orderHandler} btnType="Success">Order</Button>
             </form>
         );
