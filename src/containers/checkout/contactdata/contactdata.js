@@ -88,11 +88,16 @@ class ContactData extends Component {
     orderHandler = (event) => {
         event.preventDefault();
         //console.log(this.props.ingredients);
-        this.setState({ loading: true });
 
+        this.setState({ loading: true });
+        const formData = {};
+        for (let formElementIdentifier in this.state.orderForm) {
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
+        }
         const order = {
             ingredients: this.props.ings,
-            price: this.props.price
+            price: this.props.price,
+            orderData: formData
 
         };
 
@@ -132,7 +137,7 @@ class ContactData extends Component {
         }
 
         let form = (
-            <form>
+            <form onSubmit={this.orderHandler}>
                     
                     {formElementsArray.map(formElement=>(
                         <Input
@@ -143,7 +148,7 @@ class ContactData extends Component {
                            changed={(event)=>this.inputChangedHandler(event,formElement.id)} // use ()=> if you need paass parameter to the method
                         />                                       // ()=> calls the handler then handler gets the parameters
                     ))}
-                    <Button clicked={this.orderHandler} btnType="Success">Order</Button>
+                    <Button  btnType="Success">Order</Button>
             </form>
         );
         if (this.state.loading) {
