@@ -4,8 +4,10 @@ import "./input.css";
 const input = props => {
     let inputElement = null;
     const inputClasses = ["InputElement"];
+    let validationError = null;
 
-    if (props.invalid) {
+    if (props.invalid && props.shouldValidate && props.touched) {
+        validationError = <p className="ValidationError">Please enter a valid value!</p>;
         inputClasses.push("Invalid");
     }
 
@@ -32,10 +34,14 @@ const input = props => {
             break;
     }
 
+
+
+
     return (
         <div className="Input">
          <label className="Label">{props.label}</label>
          {inputElement}
+         {validationError}
         </div>
     );
 };

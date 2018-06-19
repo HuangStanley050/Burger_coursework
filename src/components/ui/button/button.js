@@ -6,7 +6,7 @@ const button = props => {
     var notokay = "Button Danger";
 
     return (
-        <button className={props.btnType==="Success"? okay:notokay} onClick={props.clicked}>
+        <button disabled={props.disabled} className={props.btnType==="Success"? okay:notokay} onClick={props.clicked}>
         {props.children}
         </button>
     );
