@@ -20,9 +20,9 @@ class BurgerBuilder extends Component {
             //ingredients: null,
 
 
-            purchasing: false,
-            loading: false,
-            error: false
+            purchasing: false
+            //loading: false,
+            //error: false
         };
         //this.addIngredientHandler = this.addIngredientHandler.bind(this);
         //this.removeIngredientHandler = this.removeIngredientHandler.bind(this);
@@ -153,9 +153,9 @@ class BurgerBuilder extends Component {
 
         }
 
-        if (this.state.loading) {
-            orderSummary = <Spinner/>;
-        }
+        /* if (this.state.loading) {
+             orderSummary = <Spinner/>;
+         }*/
 
 
         return (
