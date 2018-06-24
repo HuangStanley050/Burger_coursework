@@ -9,7 +9,7 @@ import Spinner from "../../components/ui/spinner/spinner.js";
 import withErrorHandler from "../../hoc/withErrorHandler/witherrorhandler.js";
 import { connect } from "react-redux";
 //import * as actionTypes from "../../store/actions.js";
-import * as burgerBuilderActions from "../../store/actions/index.js";
+import * as actions from "../../store/actions/index.js";
 
 
 
@@ -110,7 +110,7 @@ class BurgerBuilder extends Component {
         queryParams.push("price=" + this.state.totalPrice);
         const queryString = queryParams.join("&");
         */
-
+        this.props.onInitPurchase();
         this.props.history.push("/checkout");
     }
 
@@ -174,18 +174,19 @@ class BurgerBuilder extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
-        onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
-        onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients())
+        onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
+        onIngredientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(actions.initIngredients()),
+        onInitPurchase: () => dispatch(actions.purchaseInit())
     };
 };
 
 const mapStateToProps = state => {
 
     return {
-        ings: state.ingredients,
-        price: state.totalPrice,
-        error: state.error
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        error: state.burgerBuilder.error
     };
 };
 

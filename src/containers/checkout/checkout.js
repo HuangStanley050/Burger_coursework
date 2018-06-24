@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import ContactData from "./contactdata/contactdata.js";
 import CheckoutSummary from "../../components/order/checkoutsummary/checkoutsummary.js";
 import { connect } from "react-redux";
+import * as actions from "../../store/actions/index";
 /*global URLSearchParams*/
 
 class Checkout extends Component {
@@ -24,6 +25,7 @@ class Checkout extends Component {
     }
     */
 
+
     checkoutCancelledHandler = () => {
         this.props.history.goBack();
     }
@@ -33,28 +35,46 @@ class Checkout extends Component {
     }
 
     render() {
-        return (
-            <div>
-                <CheckoutSummary 
-                checkoutCanelled={this.checkoutCancelledHandler}
-                checkoutContinued={this.checkoutContinuedHandler}
-                ingredients={this.props.ings}
-                />
-                <Route path={this.props.match.path +'/contact-data'}
-                       component={ContactData}
-                />
-            </div>
-        );
+        let summary = <Redirect to="/"/>;
+
+
+        if (this.props.ings) {
+            const purchasedRedirect = this.props.purchased ? <Redirect to="/"/> : null;
+
+            summary = (
+                <div>
+                  {purchasedRedirect}
+                  <CheckoutSummary 
+                   checkoutCanelled={this.checkoutCancelledHandler}
+                   checkoutContinued={this.checkoutContinuedHandler}
+                   ingredients={this.props.ings}
+                  />
+                  <Route path={this.props.match.path +'/contact-data'}
+                    component={ContactData}
+                  />
+                </div>
+            );
+        }
+        return summary;
+
+
     }
 
 };
 
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients,
+        ings: state.burgerBuilder.ingredients,
+        purchased: state.order.purchased
         //price: state.totalPrice
     };
 };
+
+/*const mapDispatchToProps = dispatch => {
+    return {
+        onInitPurchase: () => dispatch(actions.purchaseInit())
+    };
+};*/
 
 //mapStateToProps --->always 1st argument
 //mapDispatchToProps--->always 2nd argument
