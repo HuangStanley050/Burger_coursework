@@ -7,22 +7,24 @@ import BurgerBuilder from "./containers/burgerbuilder/burgerbuilder.js";
 import Checkout from "./containers/checkout/checkout.js";
 import Orders from "./containers/orders/orders.js";
 import Auth from "./containers/auth/auth";
+import Logout from "./containers/auth/logout/logout";
 
 class App extends Component {
-  render() {
-    return (
-      <div>
+    render() {
+        return (
+            <div>
         <Layout>
          <Switch>
          <Route path="/checkout" component={Checkout}/>
          <Route path="/orders" component={Orders}/>
-          <Route path="/auth" component={Auth}/>
+         <Route path="/auth" component={Auth}/>
+         <Route path="/logout" component={Logout}/>
          <Route exact path="/" component={BurgerBuilder}/>
          </Switch>
         </Layout>
       </div>
-    );
-  }
+        );
+    }
 }
 
 export default App;
