@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 //import logo from './logo.svg';
 import './App.css';
 import { connect } from "react-redux";
@@ -12,14 +12,17 @@ import Logout from "./containers/auth/logout/logout";
 import * as actions from "./store/actions/index";
 
 class App extends Component {
+
     componentDidMount() {
         this.props.onTryAutoSignup();
     }
+
     render() {
         let routes = (
             <Switch>
               <Route path="/auth" component={Auth}/>
               <Route exact path="/" component={BurgerBuilder}/>
+              <Redirect to="/"/>
             </Switch>
         );
 
@@ -30,6 +33,7 @@ class App extends Component {
                 <Route path="/orders" component={Orders}/>
                 <Route path="/logout" component={Logout}/>
                 <Route exact path="/" component={BurgerBuilder}/>
+                <Redirect to="/"/>
             </Switch>
             );
         }
