@@ -16,21 +16,38 @@ class App extends Component {
         this.props.onTryAutoSignup();
     }
     render() {
+        let routes = (
+            <Switch>
+              <Route path="/auth" component={Auth}/>
+              <Route exact path="/" component={BurgerBuilder}/>
+            </Switch>
+        );
+
+        if (this.props.isAuthenticated) {
+            routes = (
+                <Switch>
+                <Route path="/checkout" component={Checkout}/>
+                <Route path="/orders" component={Orders}/>
+                <Route path="/logout" component={Logout}/>
+                <Route exact path="/" component={BurgerBuilder}/>
+            </Switch>
+            );
+        }
         return (
             <div>
-        <Layout>
-         <Switch>
-         <Route path="/checkout" component={Checkout}/>
-         <Route path="/orders" component={Orders}/>
-         <Route path="/auth" component={Auth}/>
-         <Route path="/logout" component={Logout}/>
-         <Route exact path="/" component={BurgerBuilder}/>
-         </Switch>
-        </Layout>
-      </div>
+               <Layout>
+                    {routes}
+                </Layout>
+          </div>
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.auth.token !== null
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -38,4 +55,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
