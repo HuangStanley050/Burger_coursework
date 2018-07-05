@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import Input from "../../../components/ui/input/input.js";
 import withErrorHandler from "../../../hoc/withErrorHandler/witherrorhandler";
 import * as actions from "../../../store/actions/index";
+//import { updateObject } from "../../../shared/utility";
 
 /*
 name: "",

@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import ContactData from "./contactdata/contactdata.js";
 import CheckoutSummary from "../../components/order/checkoutsummary/checkoutsummary.js";
 import { connect } from "react-redux";
-import * as actions from "../../store/actions/index";
+
 /*global URLSearchParams*/
 
 class Checkout extends Component {

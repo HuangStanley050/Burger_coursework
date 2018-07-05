@@ -22,7 +22,7 @@ const sidedrawer = props => {
         />
         
         
-        <div className={"SideDrawer "+attachedClasses}>
+        <div className={"SideDrawer "+attachedClasses} onClick={props.closed}>
         
             <div className="LogoS">
             <Logo/>
