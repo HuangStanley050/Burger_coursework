@@ -8,11 +8,11 @@ import NavigationItem from "./navigationitem/navigationitem";
 configure({ adapter: new Adapter() });
 
 describe("<NavigationItems/>", () => {
-    let wrapper =
+    let wrapper;
 
-        beforeEach(() => {
-            wrapper = shallow(<NavigationItems/>);
-        });
+    beforeEach(() => {
+        wrapper = shallow(<NavigationItems/>);
+    });
 
     it("should render two <NavigationItem/> elements if not authenticated", () => {
 
